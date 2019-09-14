@@ -11,13 +11,16 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Номерной знак машины"
+            android:hint="Поиск по автономеру"
             android:id="@+id/editNum"
+            android:imeOptions="actionDone"
+            android:lines="1"
             android:layout_weight="1"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="GO"
+            android:id="@+id/btnGo"
             android:onClick="btnClick"/>
     </LinearLayout>
 
@@ -29,26 +32,123 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <TextView
+                android:id="@+id/tvTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text=""
-                android:textSize="24dp"
-                android:id="@+id/tv" />
+                android:textSize="25dp" />
 
             <ImageView
+                android:id="@+id/img"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/img" />
+                android:layout_margin="10sp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:id="@+id/tvStolenInfo" />
+
+            <ScrollView
+                android:visibility="invisible"
+                android:id="@+id/scrollViewInfo"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                android:padding="6sp" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Регистрация:"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="10.10.2010"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:id="@+id/tvRegisterDate"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Приметы:"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Белый, 2 литра"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:id="@+id/tvFeatures"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Операция:"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ТСЦ 1247 [#1247]: Перереєстрація тз на нов. власн. по договору укладеному в тсц [#315]"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:id="@+id/tvOperation"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Адрес:"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Дніпропетровська область/м.Дніпро, Павлоград"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:id="@+id/tvAddress"/>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+            </ScrollView>
         </LinearLayout>
 
         <ProgressBar
             android:id="@+id/progressBar"
-            android:layout_centerInParent="true"
-            android:visibility="gone"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
     </RelativeLayout>
 
 </LinearLayout>
