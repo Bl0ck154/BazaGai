@@ -13,7 +13,8 @@
             android:layout_height="wrap_content"
             android:hint="Поиск по автономеру"
             android:id="@+id/editNum"
-            android:imeOptions="actionDone"
+            android:imeOptions="actionSearch"
+            android:drawableLeft="@drawable/ic_search_black_24dp"
             android:lines="1"
             android:layout_weight="1"/>
         <Button
@@ -39,6 +40,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text=""
+                android:textIsSelectable="true"
                 android:textSize="25dp" />
 
             <ImageView

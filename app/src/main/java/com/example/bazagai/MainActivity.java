@@ -2,15 +2,18 @@ package com.example.bazagai;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,6 +28,7 @@ import org.jsoup.select.Elements;
 
 import java.io.InputStream;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
@@ -63,13 +67,15 @@ public class MainActivity extends AppCompatActivity {
         editNum.setOnEditorActionListener(new EditText.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_SEARCH) {
                     btnGo.performClick();
                     return true;
                 }
                 return false;
             }
         });
+
+        editNum.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
     }
 
     public void btnClick(View view) {
@@ -77,10 +83,20 @@ public class MainActivity extends AppCompatActivity {
             number = editNum.getText();
             new NewThreed().execute();
             progressBar.setVisibility(ProgressBar.VISIBLE);
+            this.hideKeyboard(this);
         }
         catch (Exception ex) {
             Log.e("ERROR", ex.getMessage());
         }
+    }
+
+    private void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        View view = activity.getCurrentFocus();
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     public class NewThreed extends AsyncTask<String, Void, String> {
@@ -95,7 +111,9 @@ public class MainActivity extends AppCompatActivity {
         protected String doInBackground(String... strings) {
 
             try {
-                Document doc = Jsoup.connect(BAZA_URL + "/nomer/" + number).get();
+                String url = BAZA_URL + "/nomer/" + number;
+                Document doc = Jsoup.connect(url).get();
+
                 elements = doc.select(".text-center.mb-3");
                 if(!elements.isEmpty()) {
                     title = elements.first().text();
@@ -115,7 +133,6 @@ public class MainActivity extends AppCompatActivity {
             }
             catch (Exception ex) {
                 Log.e("Error", ex.getMessage());
-                title = ex.getMessage();
             }
             return null;
         }
